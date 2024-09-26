@@ -1,17 +1,11 @@
 package com.zelectec.gestioncentros.model;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Column;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import java.util.Date;
+
+
+import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import javax.persistence.EntityListeners;
+import  java.util.Date;
 
 @Entity
 @Table(name = "usuarios")
@@ -21,12 +15,16 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long usuarioId;
+    @Column(name = "usuarioId")
+    private Integer usuarioId;
 
+    @Column(name = "nombre", nullable = false, unique = true)
     private String nombre;
 
+    @Column(name = "clave", nullable = false)
     private String clave;
 
+    @Column(name = "estado", nullable = false)
     private String  estado; // a = activo, i = inactivo
 
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -39,14 +37,22 @@ public class Usuario {
     @LastModifiedDate
     private Date updatedAt;
 
+    // Constructor sin parámetros
+    public Usuario() {
+    }
+
+    // Constructor con parámetros
+    public Usuario(String nombre, String clave, String estado) {
+        this.nombre = nombre;
+        this.clave = clave;
+        this.estado = estado;
+    }
     // Getters y setters
-
-
-    public Long getIdusuario() {
+    public Integer getUsuarioId() {
         return usuarioId;
     }
 
-    public void setIdusuario(Long usuarioId ) {
+    public void setUsuarioId(Integer usuarioId ) {
         this.usuarioId = usuarioId;
     }
 

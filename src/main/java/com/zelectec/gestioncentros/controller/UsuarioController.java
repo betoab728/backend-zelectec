@@ -19,7 +19,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public Usuario findById(@PathVariable Long id) {
+    public Usuario findById(@PathVariable Integer id) {
         return usuarioService.findById(id).orElse(null);
     }
 
@@ -29,7 +29,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUsuario(@PathVariable Long id) {
+    public void deleteUsuario(@PathVariable Integer id) {
         usuarioService.deleteUsuario(id);
     }
 }

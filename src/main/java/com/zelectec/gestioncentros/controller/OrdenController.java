@@ -1,16 +1,11 @@
 package com.zelectec.gestioncentros.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.zelectec.gestioncentros.model.Orden;
 import com.zelectec.gestioncentros.service.OrdenService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import java.util.List;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import java.time.LocalDate;
 
 @RestController
@@ -32,6 +27,13 @@ public class OrdenController {
 
     @PostMapping
     public Orden saveOrden(@RequestBody Orden orden) {
+        return ordenService.saveOrden(orden);
+    }
+
+    //actualizar
+    @PutMapping("/{id}")
+    public Orden updateOrden (@PathVariable Long id, @RequestBody Orden orden) {
+        orden.setIdOrden(id); // Asegurar que el ID de la Orden se establece en el objeto
         return ordenService.saveOrden(orden);
     }
 

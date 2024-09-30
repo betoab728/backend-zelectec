@@ -34,6 +34,13 @@ public class TrabajadorController {
         return trabajadorService.saveTrabajador(trabajador);
     }
 
+    //actualizar
+    @PostMapping("/{id}")
+    public Trabajador updateTrabajador(@PathVariable Long id, @RequestBody Trabajador trabajador) {
+        trabajador.setIdTrabajador(id); // Asegurar que el ID del Trabajador se establece en el objeto
+        return trabajadorService.saveTrabajador(trabajador);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteTrabajador(@PathVariable Long id) {
         trabajadorService.deleteTrabajador(id);

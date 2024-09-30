@@ -28,7 +28,7 @@ public class OrdenService {
         return ordenRepository.findById(id);
     }
 
-    // Guardar orden
+    // Guardar y actualizar orden
     public Orden saveOrden(Orden orden) {
         return ordenRepository.save(orden);
     }
@@ -42,12 +42,6 @@ public class OrdenService {
     public List<Orden> findByFecha(LocalDate fecha) {
         return ordenRepository.findByFecha(fecha);
     }
-
-    //actualizar orden
-    public Orden updateOrden(Orden orden) {
-        return ordenRepository.save(orden);
-    }
-
 
 
 }

@@ -41,9 +41,10 @@ public class ClienteController {
     }
 
     //para actualizar cliente
-    @PutMapping
-    public Cliente updateCliente(@RequestBody Cliente cliente) {
-        return clienteService.updateCliente(cliente);
+    @PutMapping("/{id}")
+    public Cliente updateCliente(@PathVariable Long id,@RequestBody Cliente cliente) {
+        cliente.setIdCliente(id);
+        return clienteService.saveCliente(cliente);
     }
 
 }

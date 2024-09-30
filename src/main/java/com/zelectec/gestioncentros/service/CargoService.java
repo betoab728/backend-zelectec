@@ -25,10 +25,6 @@ public class CargoService {
         cargoRepository.deleteById(id);
     }
 
-    public Cargo updateCargo(Cargo cargo) {
-        return cargoRepository.save(cargo);
-    }
-
     public Cargo findById(Long id) {
         return cargoRepository.findById(id)
                 .orElse(null);

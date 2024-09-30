@@ -27,7 +27,7 @@ public class DetalleOrdenService {
         return detalleOrdenRepository.findById(id);
     }
 
-    // Guardar detalle de orden
+    // Guardar y actuaizar detalle de orden
     public DetalleOrden saveDetalleOrden(DetalleOrden detalleOrden) {
         return detalleOrdenRepository.save(detalleOrden);
     }
@@ -37,10 +37,6 @@ public class DetalleOrdenService {
         detalleOrdenRepository.deleteById(id);
     }
 
-    //actualizar detalle de orden
 
-    public DetalleOrden updateDetalleOrden(DetalleOrden detalleOrden) {
-        return detalleOrdenRepository.save(detalleOrden);
-    }
 
 }

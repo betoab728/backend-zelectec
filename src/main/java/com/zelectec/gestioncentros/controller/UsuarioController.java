@@ -28,6 +28,13 @@ public class UsuarioController {
         return usuarioService.saveUsuario(usuario);
     }
 
+    //actualizar
+    @PutMapping("/{id}")
+    public Usuario updateUsuario (@PathVariable Integer id, @RequestBody Usuario usuario) {
+        usuario.setUsuarioId(id); // Asegurar que el ID del Usuario se establece en el objeto
+        return usuarioService.saveUsuario(usuario);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteUsuario(@PathVariable Integer id) {
         usuarioService.deleteUsuario(id);

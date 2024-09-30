@@ -40,8 +40,9 @@ public class DetalleOrdenController {
         detalleOrdenService.deleteDetalleOrden(id);
     }
 
-    @PutMapping
-    public DetalleOrden updateDetalleOrden(@RequestBody DetalleOrden detalleOrden) {
-        return detalleOrdenService.updateDetalleOrden(detalleOrden);
+    @PutMapping("/{id}")
+    public DetalleOrden updateDetalleOrden(@PathVariable Long id,@RequestBody DetalleOrden detalleOrden) {
+        detalleOrden.setIdDetalleOrden(id);
+        return detalleOrdenService.saveDetalleOrden(detalleOrden);
     }
 }

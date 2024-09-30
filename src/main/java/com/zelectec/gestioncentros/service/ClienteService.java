@@ -27,7 +27,7 @@ public class ClienteService {
         return clienteRepository.findById(id);
     }
 
-    // Guardar cliente
+    // Guardar  y actualizar  cliente
     public Cliente saveCliente(Cliente cliente) {
         return clienteRepository.save(cliente);
     }
@@ -42,8 +42,5 @@ public class ClienteService {
         return clienteRepository.findByNombre(nombre);
     }
 
-    //actualizar cliente
-    public Cliente updateCliente(Cliente cliente) {
-        return clienteRepository.save(cliente);
-    }
+
 }

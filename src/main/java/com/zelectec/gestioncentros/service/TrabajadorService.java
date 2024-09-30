@@ -27,10 +27,6 @@ public class TrabajadorService {
         trabajadorRepository.deleteById(id);
     }
 
-    public Trabajador updateTrabajador(Trabajador trabajador) {
-        return trabajadorRepository.save(trabajador);
-    }
-
     public Optional <Trabajador> findById(Long id) {
         return trabajadorRepository.findById(id);
     }

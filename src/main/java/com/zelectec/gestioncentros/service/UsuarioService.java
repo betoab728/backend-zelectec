@@ -15,7 +15,6 @@ public class UsuarioService {
 
     private static final Logger logger = LoggerFactory.getLogger(UsuarioService.class);
 
-
     @Autowired
     private UsuarioRepository usuarioRepository;
 
@@ -39,7 +38,5 @@ public class UsuarioService {
     public void deleteUsuario(Integer id) {
         usuarioRepository.deleteById(id);
     }
-
-
 
 }

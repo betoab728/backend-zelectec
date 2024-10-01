@@ -7,15 +7,22 @@ import com.zelectec.gestioncentros.repository.OrdenRepository;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import  com.zelectec.gestioncentros.repository.DetalleOrdenRepository;
+import org.springframework.transaction.annotation.Transactional;
+import com.zelectec.gestioncentros.model.DetalleOrden;
 
 @Service
 public class OrdenService {
 
     private final OrdenRepository ordenRepository;
+    private final DetalleOrdenRepository detalleOrdenRepository;
+
 
     @Autowired
-    public OrdenService(OrdenRepository ordenRepository) {
+    public OrdenService(OrdenRepository ordenRepository, DetalleOrdenRepository detalleOrdenRepository) {
         this.ordenRepository = ordenRepository;
+        this.detalleOrdenRepository = detalleOrdenRepository;
+
     }
 
     // Obtener todas las ordenes
@@ -28,9 +35,19 @@ public class OrdenService {
         return ordenRepository.findById(id);
     }
 
-    // Guardar y actualizar orden
-    public Orden saveOrden(Orden orden) {
-        return ordenRepository.save(orden);
+    // Guardar y actualizar orden con detalle, usando transacción
+    @Transactional
+    public Orden saveOrden(Orden orden, List<DetalleOrden> detalles) {
+
+        // Guardar la orden
+        Orden ordenGuardada = ordenRepository.save(orden); // Esto genera el idOrden
+        // Guardar los detalles relacionados con la orden
+        for (DetalleOrden detalle : detalles) {
+            detalle.setOrden(ordenGuardada);  // Asociar el detalle a la orden
+            detalleOrdenRepository.save(detalle);
+        }
+
+        return ordenGuardada;
     }
 
     // Eliminar orden
@@ -42,6 +59,5 @@ public class OrdenService {
     public List<Orden> findByFecha(LocalDate fecha) {
         return ordenRepository.findByFecha(fecha);
     }
-
 
 }

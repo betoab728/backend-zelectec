@@ -10,7 +10,6 @@ import  java.util.Date;
 @Entity
 @Table(name = "clientes")
 @EntityListeners(AuditingEntityListener.class)
-
 public class Cliente{
 
     @Id

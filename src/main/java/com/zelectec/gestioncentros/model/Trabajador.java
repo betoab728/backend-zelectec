@@ -3,11 +3,12 @@ package com.zelectec.gestioncentros.model;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.util.Date;
 
 @Entity
 @Table(name = "trabajadores")
+@EntityListeners(AuditingEntityListener.class)
 public class Trabajador {
 
     @Id
@@ -25,7 +26,7 @@ public class Trabajador {
 
     //sexo
     @Column(name = "sexo", nullable = false)
-    private String sexo;
+    private String sexo; //m = masculino, f = femenino
 
     @Column(name = "dni", nullable = false)
     private String dni;
@@ -45,7 +46,7 @@ public class Trabajador {
 
     //cargo
     @ManyToOne
-    @JoinColumn(name = "idCargo", nullable = false)
+    @JoinColumn(name = "id_cargo", nullable = false)
     private Cargo cargo;
 
     @Column(name = "estado", nullable = false)

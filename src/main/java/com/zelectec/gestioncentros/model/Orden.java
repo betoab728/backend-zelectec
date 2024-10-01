@@ -4,15 +4,14 @@ package com.zelectec.gestioncentros.model;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import  java.util.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-
-import java.util.Date;
-
 @Entity
 @Table(name = "ordenes")
+@EntityListeners(AuditingEntityListener.class)
 public class Orden {
 
     @Id
@@ -40,11 +39,15 @@ public class Orden {
     private EstadoOrden estadoOrden;
 
     @Column(name = "estado", nullable = false)
-    private String estado; // "efectuado", "anulado", etc.
+    private String estado; // "e para efectuado", "a para anulado", etc.
 
     //campo sobservaciones de tipo string para almacenar las observaciones de la orden
     @Column(name = "observaciones", nullable = false)
     private String observacion;
+
+    //total de la orden
+    @Column(name = "total", nullable = false)
+    private double total;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -62,7 +65,8 @@ public class Orden {
 
     // Constructor con parámetros
 
-    public Orden(LocalDate fecha, LocalTime hora, Trabajador trabajador, Cliente cliente, LocalDate fechaEntrega, EstadoOrden estadoOrden, String estado, String observacion) {
+    public Orden(LocalDate fecha, LocalTime hora, Trabajador trabajador, Cliente cliente, LocalDate fechaEntrega, EstadoOrden estadoOrden,
+                 String estado, String observacion, double total) {
         this.fecha = fecha;
         this.hora = hora;
         this.trabajador = trabajador;
@@ -71,6 +75,7 @@ public class Orden {
         this.estadoOrden = estadoOrden;
         this.estado = estado;
         this.observacion = observacion;
+        this.total = total;
     }
 
     // Getters y setters
@@ -162,5 +167,13 @@ public class Orden {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 }

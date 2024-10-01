@@ -1,24 +1,17 @@
 package com.zelectec.gestioncentros.model;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import java.util.Date;
-import java.time.LocalDateTime;
 
 
 @Entity
 @Table(name = " detalle_orden")
+@EntityListeners(AuditingEntityListener.class)
 public class DetalleOrden {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

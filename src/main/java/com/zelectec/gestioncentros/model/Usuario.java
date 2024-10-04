@@ -25,7 +25,7 @@ public class Usuario {
     private String clave;
 
     @Column(name = "estado", nullable = false)
-    private String  estado; // a = activo, i = inactivo
+    private String  estado="a"; // a = activo, i = inactivo
 
     @Column(name = "created_at", nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)

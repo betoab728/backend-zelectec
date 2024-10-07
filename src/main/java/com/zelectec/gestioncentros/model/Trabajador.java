@@ -5,6 +5,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "trabajadores")
@@ -33,7 +34,7 @@ public class Trabajador {
 
     //fecha de nacimiento
     @Column(name = "fechaNacimiento", nullable = false)
-    private Date fechaNacimiento;
+    private LocalDate fechaNacimiento;
 
     @Column(name = "telefono", nullable = false)
     private String telefono;
@@ -67,7 +68,7 @@ public class Trabajador {
     }
 
     //constructor con parametros
-    public Trabajador(String nombre, String apellidoPaterno, String apellidoMaterno, String sexo, String dni, Date fechaNacimiento, String telefono, String direccion, String correo, Cargo cargo, String estado) {
+    public Trabajador(String nombre, String apellidoPaterno, String apellidoMaterno, String sexo, String dni, LocalDate fechaNacimiento, String telefono, String direccion, String correo, Cargo cargo, String estado) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
@@ -132,11 +133,11 @@ public class Trabajador {
         this.dni = dni;
     }
 
-    public Date getFechaNacimiento() {
+    public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 

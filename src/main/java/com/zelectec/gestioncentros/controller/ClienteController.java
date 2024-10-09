@@ -32,7 +32,7 @@ public class ClienteController {
 
     @DeleteMapping("/{id}")
     public void deleteCliente(@PathVariable Long id) {
-        clienteService.deleteCliente(id);
+        clienteService.deleteClienteLogico(id);
     }
 
     @GetMapping("/nombre/{nombre}")

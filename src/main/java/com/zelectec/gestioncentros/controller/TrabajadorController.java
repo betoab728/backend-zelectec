@@ -40,7 +40,7 @@ public class TrabajadorController {
 
     @DeleteMapping("/{id}")
     public void deleteTrabajador(@PathVariable Long id) {
-        trabajadorService.deleteTrabajador(id);
+        trabajadorService.deleteTrabajadorLogico(id);
     }
 
 

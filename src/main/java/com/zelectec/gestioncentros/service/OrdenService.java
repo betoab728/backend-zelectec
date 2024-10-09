@@ -10,6 +10,7 @@ import java.util.Optional;
 import  com.zelectec.gestioncentros.repository.DetalleOrdenRepository;
 import org.springframework.transaction.annotation.Transactional;
 import com.zelectec.gestioncentros.model.DetalleOrden;
+import com.zelectec.gestioncentros.dto.OrdenClienteDTO;
 
 @Service
 public class OrdenService {
@@ -50,6 +51,12 @@ public class OrdenService {
         return ordenGuardada;
     }
 
+    //listar ordenes con cliente
+
+    public List<OrdenClienteDTO> getOrdenesWithClienteDetails() {
+        return ordenRepository.fetchOrdenesWithClienteDetails();
+    }
+
     // Eliminar orden
     public void deleteOrden(Long id) {
         ordenRepository.deleteById(id);
@@ -58,6 +65,15 @@ public class OrdenService {
     // Buscar orden por fecha
     public List<Orden> findByFecha(LocalDate fecha) {
         return ordenRepository.findByFecha(fecha);
+    }
+
+    // Actualizar estado de la orden
+    public void updateEstadoOrden(String estadoOrden, Long idOrden) {
+        ordenRepository.updateEstadoOrden(estadoOrden, idOrden);
+    }
+
+    public void updateEstado(String estado, Long idOrden) {
+        ordenRepository.updateEstado(estado, idOrden);
     }
 
 }

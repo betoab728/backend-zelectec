@@ -12,6 +12,9 @@ import com.zelectec.gestioncentros.dto.OrdenConDetallesDTO;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
+import com.zelectec.gestioncentros.dto.OrdenClienteDTO;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PatchMapping;
 
 import java.util.List;
 import java.time.LocalDate;
@@ -23,9 +26,13 @@ public class OrdenController {
     @Autowired
     private OrdenService ordenService;
 
-    @GetMapping
-    public List<Orden> findAllOrdenes() {
+   /*  @GetMapping
+   public List<Orden> findAllOrdenes() {
         return ordenService.findAllOrdenes();
+    }*/
+   @GetMapping
+    public List<OrdenClienteDTO> getOrdenesWithClienteDetails() {
+        return ordenService.getOrdenesWithClienteDetails();
     }
 
     @GetMapping("/{id}")
@@ -36,6 +43,7 @@ public class OrdenController {
     //Guardar una orden con sus detalles
     @PostMapping
     public Orden saveOrden(@RequestBody OrdenConDetallesDTO ordenConDetalles) {
+        System.out.println(ordenConDetalles);
         return ordenService.saveOrden(ordenConDetalles.getOrden(), ordenConDetalles.getDetalles());
     }
 
@@ -55,6 +63,20 @@ public class OrdenController {
     @GetMapping("/fecha/{fecha}")
     public List<Orden> findByFecha(@PathVariable LocalDate fecha) {
         return ordenService.findByFecha(fecha);
+    }
+
+    //actualizar estado del trabajo de la orden
+    @PatchMapping("/{id}/estadoOrden")
+    public ResponseEntity<Void> updateEstadoOrden(@PathVariable Long id, @RequestBody String estadoOrden) {
+        ordenService.updateEstadoOrden(estadoOrden, id);
+        return ResponseEntity.noContent().build();
+    }
+
+    //actualizar estado de anulacion la orden
+    @PatchMapping("/{id}/estado")
+    public ResponseEntity<Void> updateEstado(@PathVariable Long id, @RequestBody String estado) {
+        ordenService.updateEstado(estado, id);
+        return ResponseEntity.noContent().build();
     }
 
 

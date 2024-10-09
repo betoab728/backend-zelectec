@@ -6,6 +6,9 @@ import com.zelectec.gestioncentros.model.Cliente;
 import java.util.List;
 import java.util.Optional;
 import  org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
+
 
 @Service
 public class ClienteService {
@@ -19,7 +22,7 @@ public class ClienteService {
 
     // Obtener todos los clientes
     public List<Cliente> findAllClientes() {
-        return clienteRepository.findAll();
+        return clienteRepository.findByEstado("a");
     }
 
     // Buscar cliente por ID
@@ -35,6 +38,20 @@ public class ClienteService {
     // Eliminar cliente
     public void deleteCliente(Long id) {
         clienteRepository.deleteById(id);
+    }
+
+    //eliminacion logica de cliente
+
+    // Eliminar cliente (lógica)
+    public void deleteClienteLogico(Long id) {
+        Optional<Cliente> clienteOpt = clienteRepository.findById(id);
+        if (clienteOpt.isPresent()) {
+            Cliente cliente = clienteOpt.get();
+            cliente.setEstado("i"); // Cambiar estado a inactivo
+            clienteRepository.save(cliente); // Guardar cliente actualizado
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente no encontrado");
+        }
     }
 
     // Buscar cliente por nombre

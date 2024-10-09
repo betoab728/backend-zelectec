@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.zelectec.gestioncentros.dto.OrdenClienteDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
+import java.util.Map;
 
 import java.util.List;
 import java.time.LocalDate;
@@ -67,7 +68,10 @@ public class OrdenController {
 
     //actualizar estado del trabajo de la orden
     @PatchMapping("/{id}/estadoOrden")
-    public ResponseEntity<Void> updateEstadoOrden(@PathVariable Long id, @RequestBody String estadoOrden) {
+    public ResponseEntity<Void> updateEstadoOrden(@PathVariable Long id,  @RequestBody Map<String, String> body) {
+
+        String estadoOrden = body.get("estadoOrden");
+        System.out.println(estadoOrden);
         ordenService.updateEstadoOrden(estadoOrden, id);
         return ResponseEntity.noContent().build();
     }

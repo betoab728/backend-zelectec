@@ -36,6 +36,7 @@ public class Orden {
     private LocalDate fechaEntrega;
 
     @Enumerated(EnumType.STRING)  // Indica que almacenaremos el valor del Enum como String en la BD
+    @Column(name = "estado_orden", nullable = false)
     private EstadoOrden estadoOrden;
 
     @Column(name = "estado", nullable = false)

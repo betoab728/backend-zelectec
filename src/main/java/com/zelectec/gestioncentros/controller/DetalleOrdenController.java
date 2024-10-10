@@ -1,5 +1,6 @@
 package com.zelectec.gestioncentros.controller;
 
+import com.zelectec.gestioncentros.dto.DetalleOrdenDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,5 +45,11 @@ public class DetalleOrdenController {
     public DetalleOrden updateDetalleOrden(@PathVariable Long id,@RequestBody DetalleOrden detalleOrden) {
         detalleOrden.setIdDetalleOrden(id);
         return detalleOrdenService.saveDetalleOrden(detalleOrden);
+    }
+
+    // Buscar detalle de orden por idOrden
+    @GetMapping("/detalle/{idOrden}")
+    public List<DetalleOrdenDTO> findByOrdenId(@PathVariable Long idOrden) {
+        return detalleOrdenService.findByOrdenId(idOrden);
     }
 }

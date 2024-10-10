@@ -11,6 +11,7 @@ import  com.zelectec.gestioncentros.repository.DetalleOrdenRepository;
 import org.springframework.transaction.annotation.Transactional;
 import com.zelectec.gestioncentros.model.DetalleOrden;
 import com.zelectec.gestioncentros.dto.OrdenClienteDTO;
+import com.zelectec.gestioncentros.model.EstadoOrden;
 
 @Service
 public class OrdenService {
@@ -68,7 +69,11 @@ public class OrdenService {
     }
 
     // Actualizar estado de la orden
-    public void updateEstadoOrden(String estadoOrden, Long idOrden) {
+    public void updateEstadoOrden(String estadoOrdenstr, Long idOrden) {
+
+        // Convierte el string a Enum
+        EstadoOrden estadoOrden = EstadoOrden.valueOf(estadoOrdenstr.toUpperCase());
+
         ordenRepository.updateEstadoOrden(estadoOrden, idOrden);
     }
 

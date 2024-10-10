@@ -6,6 +6,9 @@ import com.zelectec.gestioncentros.repository.DetalleOrdenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import com.zelectec.gestioncentros.dto.DetalleOrdenDTO;
+
 
 @Service
 public class DetalleOrdenService {
@@ -37,6 +40,28 @@ public class DetalleOrdenService {
         detalleOrdenRepository.deleteById(id);
     }
 
+    // Buscar detalle de orden por idOrden
+    public List<DetalleOrdenDTO> findByOrdenId(Long idOrden) {
+        List<DetalleOrden> detalles =    detalleOrdenRepository.findByOrden_IdOrden(idOrden);
 
+        // Convertir la lista de DetalleOrden a una lista de DetalleOrdenDTO
+        List<DetalleOrdenDTO> detallesDTO = detalles.stream()
+                .map(this::convertToDTO) // Convertir cada DetalleOrden a DetalleOrdenDTO
+                .collect(Collectors.toList()); // Recoger los resultados en una lista
+
+        return detallesDTO;
+    }
+
+    private DetalleOrdenDTO convertToDTO(DetalleOrden detalle) {
+        DetalleOrdenDTO dto = new DetalleOrdenDTO();
+        dto.setIdDetalleOrden(detalle.getIdDetalleOrden());
+        dto.setDescripcion(detalle.getDescripcion());
+        dto.setCantidad(detalle.getCantidad());
+        dto.setPrecioUnitario(detalle.getPrecioUnitario());
+        dto.setSubtotal(detalle.getSubtotal());
+        dto.setCreatedAt(detalle.getCreatedAt());
+        dto.setUpdatedAt(detalle.getUpdatedAt());
+        return dto;
+    }
 
 }

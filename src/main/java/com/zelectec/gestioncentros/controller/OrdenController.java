@@ -67,7 +67,7 @@ public class OrdenController {
     }
 
     //actualizar estado del trabajo de la orden
-    @PatchMapping("/{id}/estadoOrden")
+    @PatchMapping("/estadoOrden/{id}")
     public ResponseEntity<Void> updateEstadoOrden(@PathVariable Long id,  @RequestBody Map<String, String> body) {
 
         String estadoOrden = body.get("estadoOrden");
@@ -82,6 +82,8 @@ public class OrdenController {
         ordenService.updateEstado(estado, id);
         return ResponseEntity.noContent().build();
     }
+
+
 
 
 }

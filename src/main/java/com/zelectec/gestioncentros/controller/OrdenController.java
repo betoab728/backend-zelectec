@@ -58,7 +58,7 @@ public class OrdenController {
 
     @DeleteMapping("/{id}")
     public void deleteOrden(@PathVariable Long id) {
-        ordenService.deleteOrden(id);
+        ordenService.deleteOrdenLogico(id);
     }
 
     @GetMapping("/fecha/{fecha}")

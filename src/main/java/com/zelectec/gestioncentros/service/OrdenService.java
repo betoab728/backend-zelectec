@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.zelectec.gestioncentros.model.DetalleOrden;
 import com.zelectec.gestioncentros.dto.OrdenClienteDTO;
 import com.zelectec.gestioncentros.model.EstadoOrden;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
 
 @Service
 public class OrdenService {
@@ -29,7 +31,7 @@ public class OrdenService {
 
     // Obtener todas las ordenes
     public List<Orden> findAllOrdenes() {
-        return ordenRepository.findAll();
+        return ordenRepository.findByEstado("a");
     }
 
     // Buscar orden por ID
@@ -81,4 +83,15 @@ public class OrdenService {
         ordenRepository.updateEstado(estado, idOrden);
     }
 
+    //eliminar orden logico
+    public void deleteOrdenLogico(Long id) {
+        Optional<Orden> ordenOpt = ordenRepository.findById(id);
+        if (ordenOpt.isPresent()) {
+            Orden orden = ordenOpt.get();
+            orden.setEstado("i"); // Cambiar estado a inactivo
+            ordenRepository.save(orden); // Guardar orden actualizado
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Orden no encontrada");
+        }
+    }
 }

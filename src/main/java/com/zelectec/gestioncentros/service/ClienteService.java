@@ -8,6 +8,8 @@ import java.util.Optional;
 import  org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 
 @Service
@@ -57,6 +59,10 @@ public class ClienteService {
     // Buscar cliente por nombre
     public List<Cliente> findByNombre(String nombre) {
         return clienteRepository.findByNombre(nombre);
+    }
+
+    public Page<Cliente> buscarClientesPorTexto(String filtro, Pageable pageable) {
+        return clienteRepository.buscarClientesPorFiltro(filtro, pageable);
     }
 
 

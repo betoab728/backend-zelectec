@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import com.zelectec.gestioncentros.model.Cliente;
 import com.zelectec.gestioncentros.service.ClienteService;
- import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 @RestController
 @RequestMapping("/clientes")
@@ -45,6 +47,15 @@ public class ClienteController {
     public Cliente updateCliente(@PathVariable Long id,@RequestBody Cliente cliente) {
         cliente.setIdCliente(id);
         return clienteService.saveCliente(cliente);
+    }
+    @GetMapping("/buscar")
+    public Page<Cliente> buscarClientes(
+            @RequestParam String texto,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        return clienteService.buscarClientesPorTexto(texto, pageable);
     }
 
 }

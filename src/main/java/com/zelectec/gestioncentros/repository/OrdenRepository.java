@@ -17,10 +17,11 @@ import java.util.List;
 public interface OrdenRepository extends JpaRepository<Orden, Long> {
 
     List<Orden> findByFecha(LocalDate fecha);
+    List<Orden> findByEstado(String estado);
 
     @Query("SELECT new com.zelectec.gestioncentros.dto.OrdenClienteDTO(o.idOrden, o.fecha, o.hora, CONCAT(c.nombre, ' ', c.apellidoPaterno, ' ', c.apellidoMaterno), o.estadoOrden) " +
             "FROM Orden o " +
-            "JOIN o.cliente c")
+            "JOIN o.cliente c where o.estado = 'a'")
     List<OrdenClienteDTO> fetchOrdenesWithClienteDetails();
 
     @Transactional

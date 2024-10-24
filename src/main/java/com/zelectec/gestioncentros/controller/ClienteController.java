@@ -48,6 +48,7 @@ public class ClienteController {
         cliente.setIdCliente(id);
         return clienteService.saveCliente(cliente);
     }
+
     @GetMapping("/buscar")
     public Page<Cliente> buscarClientes(
             @RequestParam String texto,

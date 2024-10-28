@@ -41,7 +41,7 @@ public class OrdenService {
 
     // Guardar y actualizar orden con detalle, usando transacción
     @Transactional
-    public Orden saveOrden(Orden orden, List<DetalleOrden> detalles) {
+    public Long saveOrden(Orden orden, List<DetalleOrden> detalles) {
 
         // Guardar la orden
         Orden ordenGuardada = ordenRepository.save(orden); // Esto genera el idOrden
@@ -51,7 +51,7 @@ public class OrdenService {
             detalleOrdenRepository.save(detalle);
         }
 
-        return ordenGuardada;
+        return ordenGuardada.getIdOrden();
     }
 
     //listar ordenes con cliente

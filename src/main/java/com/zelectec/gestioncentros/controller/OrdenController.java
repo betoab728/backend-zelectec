@@ -43,14 +43,14 @@ public class OrdenController {
 
     //Guardar una orden con sus detalles
     @PostMapping
-    public Orden saveOrden(@RequestBody OrdenConDetallesDTO ordenConDetalles) {
+    public Long saveOrden(@RequestBody OrdenConDetallesDTO ordenConDetalles) {
         System.out.println(ordenConDetalles);
         return ordenService.saveOrden(ordenConDetalles.getOrden(), ordenConDetalles.getDetalles());
     }
 
     //actualizar  una orden con sus detalles
     @PutMapping("/{id}")
-    public Orden updateOrden (@PathVariable Long id, @RequestBody OrdenConDetallesDTO ordenConDetalles) {
+    public Long updateOrden (@PathVariable Long id, @RequestBody OrdenConDetallesDTO ordenConDetalles) {
         Orden orden = ordenConDetalles.getOrden();
         orden.setIdOrden(id); // Asegurar que el ID de la Orden se establece en el objeto
         return ordenService.saveOrden(orden, ordenConDetalles.getDetalles());

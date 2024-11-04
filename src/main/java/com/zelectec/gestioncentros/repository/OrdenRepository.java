@@ -8,6 +8,7 @@ import com.zelectec.gestioncentros.dto.OrdenClienteDTO;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
+import com.zelectec.gestioncentros.dto.IngresoPorMesDto;
 
 
 import java.time.LocalDate;
@@ -33,5 +34,29 @@ public interface OrdenRepository extends JpaRepository<Orden, Long> {
     @Modifying
     @Query("UPDATE Orden o SET o.estado = ?1 WHERE o.idOrden = ?2")
     void updateEstado(String estado, Long idOrden);
+    //consultas para el dashboard
+    //Total de órdenes:
+    @Query("SELECT COUNT(o) FROM Orden o")
+    long countTotalOrdenes();
+
+    //Órdenes en reparación:
+    @Query("SELECT COUNT(o) FROM Orden o WHERE o.estado = 'R'")
+    long countOrdenesEnReparacion();
+
+    //Órdenes completadas:
+    @Query("SELECT COUNT(o) FROM Orden o WHERE o.estado = 'C'")
+    long countOrdenesCompletadas();
+
+    //Ingresos del mes:
+    @Query("SELECT SUM(o.total) FROM Orden o WHERE AND MONTH(o.fechaEntrega) = MONTH(CURRENT_DATE) AND YEAR(o.fechaEntrega) = YEAR(CURRENT_DATE)")
+    Double ingresosDelMes();
+
+    //Gráfico de Ingresos por Mes
+    @Query("SELECT new com.zelectec.gestioncentros.dto.IngresoPorMesDto(MONTH(o.fechaEntrega), YEAR(o.fechaEntrega), SUM(o.total)) " +
+            "FROM Orden o WHERE o.estado = 'completada' " +
+            "GROUP BY YEAR(o.fechaEntrega), MONTH(o.fechaEntrega) " +
+            "ORDER BY YEAR(o.fechaEntrega), MONTH(o.fechaEntrega)")
+    List<IngresoPorMesDto> ingresosPorMes();
+
 
 }

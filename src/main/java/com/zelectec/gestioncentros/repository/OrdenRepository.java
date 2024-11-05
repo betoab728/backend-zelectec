@@ -1,5 +1,6 @@
 package com.zelectec.gestioncentros.repository;
 
+import com.zelectec.gestioncentros.dto.OrdenDto;
 import com.zelectec.gestioncentros.model.EstadoOrden;
 import com.zelectec.gestioncentros.model.Orden;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
 import com.zelectec.gestioncentros.dto.IngresoPorMesDto;
+import org.springframework.data.domain.Pageable;
 
 
 import java.time.LocalDate;
@@ -34,12 +36,13 @@ public interface OrdenRepository extends JpaRepository<Orden, Long> {
     @Modifying
     @Query("UPDATE Orden o SET o.estado = ?1 WHERE o.idOrden = ?2")
     void updateEstado(String estado, Long idOrden);
+
     //consultas para el dashboard
-    //Total de órdenes:
+   //Total de órdenes:
     @Query("SELECT COUNT(o) FROM Orden o")
     long countTotalOrdenes();
 
-    //Órdenes en reparación:
+   //Órdenes en reparación:
     @Query("SELECT COUNT(o) FROM Orden o WHERE o.estado = 'R'")
     long countOrdenesEnReparacion();
 
@@ -48,15 +51,18 @@ public interface OrdenRepository extends JpaRepository<Orden, Long> {
     long countOrdenesCompletadas();
 
     //Ingresos del mes:
-    @Query("SELECT SUM(o.total) FROM Orden o WHERE AND MONTH(o.fechaEntrega) = MONTH(CURRENT_DATE) AND YEAR(o.fechaEntrega) = YEAR(CURRENT_DATE)")
+    @Query("SELECT SUM(o.total) FROM Orden o WHERE MONTH(o.fechaEntrega) = MONTH(CURRENT_DATE) AND YEAR(o.fechaEntrega) = YEAR(CURRENT_DATE)")
     Double ingresosDelMes();
 
     //Gráfico de Ingresos por Mes
     @Query("SELECT new com.zelectec.gestioncentros.dto.IngresoPorMesDto(MONTH(o.fechaEntrega), YEAR(o.fechaEntrega), SUM(o.total)) " +
-            "FROM Orden o WHERE o.estado = 'completada' " +
+            "FROM Orden o " +
             "GROUP BY YEAR(o.fechaEntrega), MONTH(o.fechaEntrega) " +
             "ORDER BY YEAR(o.fechaEntrega), MONTH(o.fechaEntrega)")
     List<IngresoPorMesDto> ingresosPorMes();
 
+    //Últimas órdenes
+   @Query("SELECT new com.zelectec.gestioncentros.dto.OrdenDto(o.idOrden, o.fecha, o.hora, o.estadoOrden, o.total) " +
+            "FROM Orden o ORDER BY o.fechaEntrega DESC")
+    List<OrdenDto> findUltimasOrdenes(Pageable pageable);
 
-}

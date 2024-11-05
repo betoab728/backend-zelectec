@@ -1,13 +1,15 @@
 package com.zelectec.gestioncentros.dto;
 
+import java.util.List;
+
 public class DashboardDto {
     private long totalOrdenes;
     private long ordenesEnReparacion;
     private long ordenesCompletadas;
     private Double ingresosDelMes;
     private List<IngresoPorMesDto> ingresosPorMes;
-    private List<OrdenDto> ultimasOrdenes;
-    import java.util.List;
+    private  List<OrdenDto>  ultimasOrdenes;
+
 
     // Getters y Setters
     public long getTotalOrdenes() {
@@ -50,11 +52,11 @@ public class DashboardDto {
         this.ingresosPorMes = ingresosPorMes;
     }
 
-    public List<OrdenDto> getUltimasOrdenes() {
-        return ultimasOrdenes;
+    public List<OrdenDto>  getUltimasOrdenes() {
+        return  ultimasOrdenes;
     }
 
-    public void setUltimasOrdenes(List<OrdenDto> ultimasOrdenes) {
+    public void setUltimasOrdenes( List<OrdenDto>  ultimasOrdenes) {
         this.ultimasOrdenes = ultimasOrdenes;
     }
 }

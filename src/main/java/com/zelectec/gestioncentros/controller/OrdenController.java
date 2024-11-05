@@ -16,7 +16,7 @@ import com.zelectec.gestioncentros.dto.OrdenClienteDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
 import java.util.Map;
-
+import com.zelectec.gestioncentros.dto.DashboardDto;
 import java.util.List;
 import java.time.LocalDate;
 
@@ -83,7 +83,10 @@ public class OrdenController {
         return ResponseEntity.noContent().build();
     }
 
-
-
+    @GetMapping("/dashboard")
+    public ResponseEntity<DashboardDto> getDashboardData() {
+        DashboardDto dashboardData = ordenService.obtenerDatosDashboard();
+        return ResponseEntity.ok(dashboardData);
+    }
 
 }

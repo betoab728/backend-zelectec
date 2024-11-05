@@ -14,6 +14,11 @@ import com.zelectec.gestioncentros.dto.OrdenClienteDTO;
 import com.zelectec.gestioncentros.model.EstadoOrden;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
+import com.zelectec.gestioncentros.dto.DashboardDto;
+import org.springframework.data.domain.PageRequest;
+import java.util.ArrayList;
+import com.zelectec.gestioncentros.dto.OrdenDto;
+import java.time.LocalTime;
 
 @Service
 public class OrdenService {
@@ -94,4 +99,24 @@ public class OrdenService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Orden no encontrada");
         }
     }
+
+    //consultas para el dashboard
+    public DashboardDto obtenerDatosDashboard() {
+        DashboardDto dto = new DashboardDto();
+        try {
+            dto.setTotalOrdenes(ordenRepository.countTotalOrdenes());
+            dto.setOrdenesEnReparacion(ordenRepository.countOrdenesEnReparacion());
+            dto.setOrdenesCompletadas(ordenRepository.countOrdenesCompletadas());
+            dto.setIngresosDelMes(ordenRepository.ingresosDelMes() != null ? ordenRepository.ingresosDelMes() : 0.0);
+            dto.setIngresosPorMes(ordenRepository.ingresosPorMes()!= null ? ordenRepository.ingresosPorMes() : new ArrayList<>());
+            dto.setUltimasOrdenes(ordenRepository.findUltimasOrdenes(PageRequest.of(0, 5)));
+
+
+        } catch (Exception e) {
+            // Registro del error, opcionalmente podrías usar un logger
+            System.out.println("Error al obtener datos del dashboard: " + e.getMessage());
+        }
+        return dto;
+    }
+
 }

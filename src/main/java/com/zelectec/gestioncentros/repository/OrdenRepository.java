@@ -20,6 +20,7 @@ import java.util.List;
 public interface OrdenRepository extends JpaRepository<Orden, Long> {
 
     List<Orden> findByFecha(LocalDate fecha);
+
     List<Orden> findByEstado(String estado);
 
     @Query("SELECT new com.zelectec.gestioncentros.dto.OrdenClienteDTO(o.idOrden, o.fecha, o.hora, CONCAT(c.nombre, ' ', c.apellidoPaterno, ' ', c.apellidoMaterno), o.estadoOrden) " +
@@ -38,11 +39,11 @@ public interface OrdenRepository extends JpaRepository<Orden, Long> {
     void updateEstado(String estado, Long idOrden);
 
     //consultas para el dashboard
-   //Total de órdenes:
+    //Total de órdenes:
     @Query("SELECT COUNT(o) FROM Orden o")
     long countTotalOrdenes();
 
-   //Órdenes en reparación:
+    //Órdenes en reparación:
     @Query("SELECT COUNT(o) FROM Orden o WHERE o.estado = 'R'")
     long countOrdenesEnReparacion();
 
@@ -62,7 +63,7 @@ public interface OrdenRepository extends JpaRepository<Orden, Long> {
     List<IngresoPorMesDto> ingresosPorMes();
 
     //Últimas órdenes
-   @Query("SELECT new com.zelectec.gestioncentros.dto.OrdenDto(o.idOrden, o.fecha, o.hora, o.estadoOrden, o.total) " +
+    @Query("SELECT new com.zelectec.gestioncentros.dto.OrdenDto(o.idOrden, o.fecha, o.hora, o.estadoOrden, o.total) " +
             "FROM Orden o ORDER BY o.fechaEntrega DESC")
     List<OrdenDto> findUltimasOrdenes(Pageable pageable);
-
+}

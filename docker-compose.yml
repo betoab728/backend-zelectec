@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "8080:8080" # Mapea solo el puerto del backend al host
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - DB_HOST=jdbc:postgresql://database:5432/postgres
@@ -23,11 +23,11 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: Carlosbeto0308*#
       POSTGRES_DB: postgres
-    ports:
-      - "5432:5432"
+    # Elimina los puertos expuestos al host
     networks:
       - postgres_default
 
 networks:
   postgres_default:
     external: true
+

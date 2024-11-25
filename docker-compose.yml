@@ -15,7 +15,7 @@ services:
     depends_on:
       - database
     networks:
-      - app-network
+      - postgres_default
 
   database:
     image: postgres:15
@@ -26,8 +26,8 @@ services:
     ports:
       - "5432:5432"
     networks:
-      - app-network
+      - postgres_default
 
 networks:
-  app-network:
-    driver: bridge
+  postgres_default:
+    external: true

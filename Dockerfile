@@ -5,7 +5,7 @@ FROM openjdk:21-jdk-slim
 WORKDIR /app
 
 # Copiar el archivo JAR generado por Spring Boot al contenedor
-COPY out/artifacts/gestion_zelectec gestion-zelectec.jar app.jar
+COPY out/artifacts/gestion_zelectec_jar gestion-zelectec.jar app.jar
 
 # Establecer la variable de entorno para el archivo JAR (si es necesario)
 # ENV SPRING_PROFILES_ACTIVE=prod

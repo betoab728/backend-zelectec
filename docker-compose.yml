@@ -8,25 +8,11 @@ services:
       - "8080:8080" # Mapea solo el puerto del backend al host
     environment:
       - SPRING_PROFILES_ACTIVE=prod
-      - DB_HOST=jdbc:postgresql://database:5432/postgres
+      - DB_HOST=jdbc:postgresql://postgres-container:5432/postgres
       - DB_USER=postgres
       - DB_PASS=Carlosbeto0308*#
       - JWT_SECRET=grupoctc
       - JWT_EXPIRATION=86400000
-    depends_on:
-      - database
-    networks:
-      - postgres_default
-
-  database:
-    image: postgres:15
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Carlosbeto0308*#
-      POSTGRES_DB: postgres
-    # Elimina los puertos expuestos al host
-    networks:
-      - postgres_default
 
 networks:
   postgres_default:

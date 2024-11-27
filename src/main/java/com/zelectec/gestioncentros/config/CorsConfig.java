@@ -10,7 +10,11 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**") // Permite CORS para todas las rutas
-                .allowedOrigins("http://localhost:4200") // Dominio permitido (cambiar según tu entorno)
+                .allowedOrigins( // Dominio permitido (cambiar según tu entorno)
+                        "http://localhost:4200",
+                        "https://centro-tecnico.netlify.app"
+
+                )
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS","PATCH") // Métodos HTTP permitidos
                 .allowedHeaders("*") // Cabeceras permitidas
                 .allowCredentials(true)
